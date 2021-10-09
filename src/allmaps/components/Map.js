@@ -50,7 +50,7 @@ function Map() {
         
         id="uzbekistan"
         baseprofile="tiny"
-        stroke="gold"
+        stroke="orange"
         stroke-linecap="round"
         stroke-linejoin="round"
         stroke-width="2"
