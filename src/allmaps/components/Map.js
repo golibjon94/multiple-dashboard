@@ -47,7 +47,8 @@ function Map() {
       )}
       <div className='svg_responsive'>
       <svg
-        
+        width= "1000px"  
+        height= "650px"
         id="uzbekistan"
         baseprofile="tiny"
         stroke="orange"
