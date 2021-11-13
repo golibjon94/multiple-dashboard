@@ -4,8 +4,7 @@ import './thememenu.css'
 
 import { useDispatch } from 'react-redux'
 
-import ThemeAction from '../../redux/actions/ThemeAction'
-
+import { setMode,setColor } from '../../redux/themeSlice'
 const mode_settings = [
     {
         id: 'light',
@@ -85,16 +84,16 @@ const ThemeMenu = () => {
 
     const dispatch = useDispatch()
 
-    const setMode = mode => {
+    const setModee = mode => {
         setcurrMode(mode.id)
         localStorage.setItem('themeMode', mode.class)
-        dispatch(ThemeAction.setMode(mode.class))
+        dispatch(setMode(mode.class))
     }
 
-    const setColor = color => {
+    const setColorr = color => {
         setcurrColor(color.id)
         localStorage.setItem('colorMode', color.class)
-        dispatch(ThemeAction.setColor(color.class))
+        dispatch(setColor(color.class))
     }
 
     useEffect(() => {
@@ -123,7 +122,7 @@ const ThemeMenu = () => {
                     <ul className="mode-list">
                         {
                             mode_settings.map((item, index) => (
-                                <li key={index} onClick={() => setMode(item)}>
+                                <li key={index} onClick={() => setModee(item)}>
                                     <div className={`mode-list__color ${item.background} ${item.id === currMode ? 'active' : ''}`}>
                                         <i className='bx bx-check'></i>
                                     </div>
@@ -138,7 +137,7 @@ const ThemeMenu = () => {
                     <ul className="mode-list">
                         {
                             color_settings.map((item, index) => (
-                                <li key={index} onClick={() => setColor(item)}>
+                                <li key={index} onClick={() => setColorr(item)}>
                                     <div className={`mode-list__color ${item.background} ${item.id === currColor ? 'active' : ''}`}>
                                         <i className='bx bx-check'></i>
                                     </div>

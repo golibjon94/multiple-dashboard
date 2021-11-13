@@ -34,6 +34,11 @@
     margin-bottom: 10px;
 }
 
+.status-card__info > span {
+    font-size: 0.8rem;
+    margin-bottom: 10px;
+}
+
 .status-card::before {
     content: "";
     width: 100%;

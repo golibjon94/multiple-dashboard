@@ -1,13 +1,15 @@
 
 
-#uzbekistan{
-    padding: 40px ; 
-    height: 100%;
-    width: 100%;
-  
+.uzbmap{
     
-    fill: #141414;
-    background-color: dimgray;
+    width: 500px;
+    height: 400px;
+    
+}
+
+#uzbekistan{
+    fill: #717da3;
+    
     }
   
   

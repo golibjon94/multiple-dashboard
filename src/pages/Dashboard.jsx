@@ -4,8 +4,6 @@ import { Link } from "react-router-dom";
 
 import Chart from "react-apexcharts";
 
-import { useSelector } from "react-redux";
-
 import StatusCard from "../components/status-card/StatusCard";
 
 import Table from "../components/table/Table";
@@ -17,6 +15,12 @@ import InputInfos from "../components/inputInfos";
 import Map from "../allmaps/components/Map";
 import RegionsData from "../allmaps/components/RegionsData";
 import {BrowserRouter as Router ,Route, Switch } from "react-router-dom";
+import Chartt from "../allmaps/components/chart";
+import Chartt2 from "../allmaps/components/chart2";
+import AllInfos from "../allmaps/datas/apidatas.json";
+import RegionsInfos from "../allmaps/datas/regionsInfos.json";
+import Grid from '../allmaps/components/grid';
+import { useSelector } from "react-redux";
 
 const chartOptions = {
   series: [
@@ -152,7 +156,7 @@ const orderStatus = {
 };
 
 const renderOrderHead = (item, index) => <th key={index}>{item}</th>;
-
+const regInfos=RegionsInfos.map(item=>item.infos);
 const renderOrderBody = (item, index) => (
   <tr key={index}>
     <td>{item.id}</td>
@@ -164,10 +168,13 @@ const renderOrderBody = (item, index) => (
     </td>
   </tr>
 );
-
 const Dashboard = () => {
   const [showDatas, setShowDatas] = useState(false);
-  const themeReducer = useSelector((state) => state.ThemeReducer.mode);
+  const {mode} = useSelector(state => state.themeSlice)
+  const allInfos = useSelector(state => state.regionsSlice.allInfos);
+  const filteredUzbInfos=AllInfos.filter(item=>item.name==="Uzb")
+console.log(filteredUzbInfos)
+console.log(allInfos)
 
   return (
       <Router>
@@ -175,46 +182,17 @@ const Dashboard = () => {
 
       <InputInfos />
       <h2 className="page-header">Dashboard</h2>
-     
       <Switch>
         <Route exact path="/">
+     <div style={{display:"flex"}}>
           <Map />
-        </Route>
-        <Route exact path="/regionData/:id">
-          < RegionsData/>
-        </Route>
-      </Switch>
-     
-      {showDatas ? (
-        <div className="col-8">
-          <div className="card">
-            <div className="card__header">
-              <h3>latest orders</h3>
-            </div>
-            <div className="card__body">
-              <Table
-                headData={latestOrders.header}
-                renderHead={(item, index) => renderOrderHead(item, index)}
-                bodyData={latestOrders.body}
-                renderBody={(item, index) => renderOrderBody(item, index)}
-              />
-            </div>
-            <div className="card__footer">
-              <Link to="/">view all</Link>
-            </div>
-          </div>
-        </div>
-      ) : (
-        ""
-      )}
-      <div className="row">
+      <div style={{marginTop:"70px",marginLeft:"20px"}}className="row">
         <div className="col-8"></div>
         <div className="col-4">
           <div className="row">
-            {statusCards.map((item, index) => (
+            {filteredUzbInfos[0].infos.map((item, index) => (
               <div className="col-6" key={index}>
                 <StatusCard
-                  icon={item.icon}
                   count={item.count}
                   title={item.title}
                 />
@@ -222,9 +200,67 @@ const Dashboard = () => {
             ))}
           </div>
         </div>
+        </div>
+        </div>
+
+      <div style={{width:"600px",marginLeft:"50px"}}> 
+<div style={{display:"flex",justifyContent:"space-between"}}>
+      <Chartt uzb={true} infos={ [
+            {
+              "tumanNomi":"Tashkent",
+              "JamiArizalar": "1000000",
+              "maqullangan": "700000",
+              "radEtilgan": "200000",
+              "muddatiTugagan": "100000",
+              "datas":[700000,200000,100000]
+            },]}/>
+    <Chartt2/>
+    </div>
+    <div style={{marginLeft:"50px"}}>
+    <Grid/>
+    </div>
+
+      
       </div>
+      </Route>
+      
+        <Route exact path="/regionData/:id">
+          <div style={{display:"flex"}}>
+          < RegionsData/>
+      <div style={{marginTop:"70px"}}className="row">
+        <div className="col-8"></div>
+        <div className="col-4">
+          <div className="row">
+          {filteredUzbInfos[0].infos.map((item, index) => (
+              <div className="col-6" key={index}>
+                <StatusCard
+                  count={item.count}
+                  title={item.title}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+        </div>
+        </div>
+    
+      <div style={{width:"600px",marginLeft:"-50px",marginTop:"-60px"}}> 
+
+      <div style={{display:"flex",justifyContent:"space-between",}}>
+      <Chartt uzb={false} regInfos={RegionsInfos}/>
+    <Chartt2/>
+        </div>
+        <div style={{marginLeft:"150px"}}>
+    <Grid/>
+    </div>
+
+
+      </div>
+        </Route>
+      </Switch>
     </div>
     </Router>
+    
   );
 };
 

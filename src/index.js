@@ -6,25 +6,21 @@ import { createStore } from "redux";
 
 import { Provider } from "react-redux";
 
-import rootReducer from "./redux/reducers";
-
-
+// import rootReducer from "./redux/reducers";
+import store from "./redux/store"
 import "./assets/boxicons-2.0.7/css/boxicons.min.css";
 import "./assets/css/grid.css";
 import "./assets/css/theme.css";
 import "./assets/css/index.css";
-
-
+// import 'bootstrap/dist/css/bootstrap.min.css';
 import Layout from "./components/layout/Layout";
-
-const store = createStore(rootReducer);
+// const store = createStore(rootReducer);
 
 document.title = "Uzmap Dashboard CRM";
 
 ReactDOM.render(
   <Provider store={store}>
     <React.StrictMode>
-     
       <Layout />
     </React.StrictMode>
   </Provider>,

@@ -9,11 +9,12 @@ import { BrowserRouter, Route } from 'react-router-dom'
 
 import { useSelector, useDispatch } from 'react-redux'
 
-import ThemeAction from '../../redux/actions/ThemeAction'
+// import ThemeAction from '../../redux/actions/ThemeAction'
+import {setMode,setColor} from "../../redux/themeSlice"
 
 const Layout = () => {
 
-    const themeReducer = useSelector(state => state.ThemeReducer)
+    const {color,mode} = useSelector(state => state.themeSlice)
 
     const dispatch = useDispatch()
 
@@ -22,15 +23,15 @@ const Layout = () => {
 
         const colorClass = localStorage.getItem('colorMode', 'theme-mode-light')
 
-        dispatch(ThemeAction.setMode(themeClass))
+        dispatch(setMode(themeClass))
 
-        dispatch(ThemeAction.setColor(colorClass))
+        dispatch(setColor(colorClass))
     }, [dispatch])
 
     return (
         <BrowserRouter>
             <Route render={(props) => (
-                <div className={`layout ${themeReducer.mode} ${themeReducer.color}`}>
+                <div className={`layout ${mode} ${color}`}>
                     <Sidebar {...props}/>
                     <div className="layout__content">
                         <TopNav/>
